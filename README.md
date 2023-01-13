@@ -14,7 +14,6 @@ $ pywes [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* `client`: Control the simulation client.
 * `install-ngspice`: Install ngspice executable in the correct...
 * `server`: Control the simulation server.
 

@@ -3,12 +3,16 @@ from asyncio import StreamReader
 from pydantic import FilePath, DirectoryPath
 from .base_wrapper import BaseWrapper, ResultDict
 from typing import List
+from typer import Typer
 
 
+ng_spice = Typer()
+# should be only three-four functions : install/config, prepare, run (and results ?)
 class NGSpice(BaseWrapper):
     def __init__(self, sim_path: FilePath):
         BaseWrapper.__init__(self, name="ngspice", path=sim_path, supported_sim=("ac",))
 
+    @ng_spice.command()
     async def run(
         self,
         sim_file: FilePath,
