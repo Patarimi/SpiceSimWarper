@@ -14,55 +14,9 @@ $ pywes [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* `install-ngspice`: Install ngspice executable in the correct...
-* `server`: Control the simulation server.
-
-## `pywes client`
-
-Control the simulation client.
-
-**Usage**:
-
-```console
-$ pywes client [OPTIONS] COMMAND:[start|stop]
-```
-
-**Arguments**:
-
-* `COMMAND:[start|stop]`: [required]
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-## `pywes install-ngspice`
-
-Install ngspice executable in the correct location.
-
-**Usage**:
-
-```console
-$ pywes install-ngspice [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-## `pywes server`
-
-Control the simulation server.
-
-**Usage**:
-
-```console
-$ pywes server [OPTIONS] COMMAND:[start|stop]
-```
-
-**Arguments**:
-
-* `COMMAND:[start|stop]`: [required]
-
-**Options**:
-
-* `--help`: Show this message and exit.
+* `list`: list available wrappers.
+* For a given wrapper:
+  * `install`: install the software on the system.
+  * `prepare`: not implemented yet. Set everything for the next simulation.
+  * `run`: run the simulation and store the output in results.
+  * `export`: export the results as a .hdf5 file.
