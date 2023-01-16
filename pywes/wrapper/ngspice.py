@@ -1,64 +1,80 @@
-import asyncio
 from asyncio import StreamReader
 from pydantic import FilePath, DirectoryPath
 from .base_wrapper import BaseWrapper, ResultDict
-from typing import List
+from typer import Typer
+from os import getcwd
+import wget
+import zipfile
+from os import getcwd, remove
+
+ng_spice = Typer()
 
 
-class NGSpice(BaseWrapper):
-    def __init__(self, sim_path: FilePath):
-        BaseWrapper.__init__(self, name="ngspice", path=sim_path, supported_sim=("ac",))
-
-    async def run(
-        self,
-        sim_file: FilePath,
-        log_folder: DirectoryPath,
-        config_file: List[FilePath] = (),
-    ):
-        cir = open(sim_file)
-        proc = await asyncio.create_subprocess_shell(
-            f"{self.path} -s",
-            stdin=cir,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
-        std_out_task = asyncio.create_task(self.parse_out(proc.stdout))
-        std_err_task = asyncio.create_task(self.parse_err(proc.stderr, log_folder))
-        await asyncio.gather(proc.wait(), std_out_task, std_err_task)
-        cir.close()
-
-    async def parse_out(self, stdout: StreamReader):
-        ind = 0
-        var_name = list()
-        step = "start"
-        self.results = ResultDict()
-        while line := await stdout.readline():
-            l_str = line.decode()
-            if l_str.startswith("Variables"):
-                step = "var_name"
-            if l_str.startswith("Values"):
-                step = "values"
+@ng_spice.command()
+async def parse_out(stdout: StreamReader) -> ResultDict:
+    ind = 0
+    var_name = list()
+    step = "start"
+    results = ResultDict()
+    while line := await stdout.readline():
+        l_str = line.decode()
+        if l_str.startswith("Variables"):
+            step = "var_name"
+        if l_str.startswith("Values"):
+            step = "values"
+            continue
+        l_split = l_str.split()
+        # Variables name part
+        if step == "var_name" and len(l_split) == 3:
+            try:
+                int(l_split[0])
+            except ValueError:
                 continue
-            l_split = l_str.split()
-            # Variables name part
-            if step == "var_name" and len(l_split) == 3:
-                try:
-                    int(l_split[0])
-                except ValueError:
-                    continue
-                var_name.append(l_split[1])
-                self.results[l_split[1]] = list()
-                continue
-            # Values extraction part
-            if step == "values":
-                if len(l_split) == 2:
-                    ind = 0
-                    self.results[var_name[ind]].append(float(l_str.split()[1]))
-                else:
-                    r = float(l_str)
-                    ind += 1
-                    self.results[var_name[ind]].append(r)
+            var_name.append(l_split[1])
+            results[l_split[1]] = list()
+            continue
+        # Values extraction part
+        if step == "values":
+            if len(l_split) == 2:
+                ind = 0
+                results[var_name[ind]].append(float(l_str.split()[1]))
+            else:
+                r = float(l_str)
+                ind += 1
+                results[var_name[ind]].append(r)
+    return results
 
-    async def parse_err(self, stderr: StreamReader, log_folder: DirectoryPath):
-        with open(log_folder + "err.out", "wb") as err:
-            err.write(await stderr.read())
+
+async def parse_err(stderr: StreamReader, log_folder: DirectoryPath):
+    with open(log_folder + "err.out", "wb") as err:
+        err.write(await stderr.read())
+
+
+@ng_spice.command()
+def install():
+    """
+    Install ngspice executable in the correct location.
+    """
+    ngspice_version = 38
+    ngspice_base_url = f"https://sourceforge.net/projects/ngspice/files/ng-spice-rework/{ngspice_version}/"
+    ngspice_archive_name = f"ngspice-{ngspice_version}_64.zip"
+    base_install = f"{getcwd()}/simulators/"
+    wget.download(ngspice_base_url + ngspice_archive_name, base_install)
+    with zipfile.ZipFile(base_install + ngspice_archive_name) as zip:
+        zip.extractall(base_install)
+    remove(base_install + ngspice_archive_name)
+
+
+def prepare() -> bool:
+    return True
+
+
+NGSpice = BaseWrapper(
+    name="ngspice",
+    path=f"{getcwd()}/simulators/Spice64/bin/ngspice_con.exe",
+    supported_sim=("ac",),
+    parse_out=parse_out,
+    parse_err=parse_err,
+    install=install,
+    prepare=prepare,
+)
