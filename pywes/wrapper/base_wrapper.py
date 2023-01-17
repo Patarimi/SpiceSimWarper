@@ -43,20 +43,19 @@ class BaseWrapper(BaseModel):
     parse_out: Callable[[StreamReader], ResultDict]
     parse_err: Callable[[StreamReader], ResultDict]
 
-    """
-    run the spice simulation describe by the _spice_file
-    :param sim_file: input file to be simulated
-    :param log_folder: directory to write simulation log
-    :param config_file: List of file used to set up the simulator
-    :return: a temp file of the raw out of the simulator (to be process by serialize_result)
-    """
-
     async def run(
         self,
         sim_file: FilePath,
         log_folder: DirectoryPath,
         config_file: List[FilePath] = (),
     ):
+        """
+        run the spice simulation describe by the _spice_file
+        :param sim_file: input file to be simulated
+        :param log_folder: directory to write simulation log
+        :param config_file: List of file used to set up the simulator
+        :return: a temp file of the raw out of the simulator (to be process by serialize_result)
+        """
         cir = open(sim_file)
         proc = await asyncio.create_subprocess_shell(
             f"{self.path} -s",

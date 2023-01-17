@@ -2,7 +2,6 @@ from asyncio import StreamReader
 from pydantic import FilePath, DirectoryPath
 from .base_wrapper import BaseWrapper, ResultDict
 from typer import Typer
-from os import getcwd
 import wget
 import zipfile
 from os import getcwd, remove
@@ -10,7 +9,6 @@ from os import getcwd, remove
 ng_spice = Typer()
 
 
-@ng_spice.command()
 async def parse_out(stdout: StreamReader) -> ResultDict:
     ind = 0
     var_name = list()
@@ -33,7 +31,7 @@ async def parse_out(stdout: StreamReader) -> ResultDict:
             var_name.append(l_split[1])
             results[l_split[1]] = list()
             continue
-        # Values extraction part
+        # Values extractions part
         if step == "values":
             if len(l_split) == 2:
                 ind = 0
@@ -65,6 +63,7 @@ def install():
     remove(base_install + ngspice_archive_name)
 
 
+@ng_spice.command()
 def prepare() -> bool:
     return True
 
