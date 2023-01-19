@@ -1,4 +1,5 @@
-from asyncio import StreamReader
+import os
+from asyncio import StreamReader, run
 from pydantic import FilePath, DirectoryPath
 import pywes.wrapper.base_wrapper as base_wrapper
 from typer import Typer
@@ -44,6 +45,8 @@ async def parse_out(stdout: StreamReader) -> base_wrapper.ResultDict:
 
 
 async def parse_err(stderr: StreamReader, log_folder: DirectoryPath):
+    if not os.path.isdir(log_folder):
+        os.mkdir(log_folder)
     with open(log_folder + "err.out", "wb") as err:
         err.write(await stderr.read())
 
@@ -61,6 +64,8 @@ def install():
     with zipfile.ZipFile(base_install + ngspice_archive_name) as zip:
         zip.extractall(base_install)
     remove(base_install + ngspice_archive_name)
+    conf = {"ngspice": {"path": f"{base_install}Spice64/bin/ngspice_con.exe"}}
+    base_wrapper.write_conf(conf)
 
 
 @ng_spice.command()
@@ -68,22 +73,17 @@ def prepare() -> bool:
     return True
 
 
-try:
-    conf = base_wrapper.load_conf()
-    print(conf["ngspice"])
-except FileNotFoundError:
-    conf = {"ngspice": {"path": f"{getcwd()}/simulators/Spice64/bin/ngspice_con.exe"}}
-    base_wrapper.write_conf(conf, f"{getcwd()}/config.yaml")
-except (KeyError, TypeError):
-    conf["ngspice"] = {"path": f"{getcwd()}/simulators/Spice64/bin/ngspice_con.exe"}
-    base_wrapper.write_conf(conf, f"{getcwd()}/config.yaml")
-
 NGSpice = base_wrapper.BaseWrapper(
     name="ngspice",
-    path=conf["ngspice"]["path"],
     supported_sim=("ac",),
     parse_out=parse_out,
     parse_err=parse_err,
     install=install,
     prepare=prepare,
 )
+
+
+@ng_spice.command(name="run")
+def run_p(sim_file: str, log_folder: str = f"{getcwd()}/tmp/"):
+    run(NGSpice.run(sim_file, log_folder))
+    NGSpice.export(f"{log_folder}/res.hdf5")

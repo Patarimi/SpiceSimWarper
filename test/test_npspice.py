@@ -1,10 +1,9 @@
 from pywes.wrapper.ngspice import NGSpice
-from os import getcwd
 from asyncio import run
 
 
 def test_ngspice():
-    run(NGSpice.run(f"{getcwd()}/test/schem_test.net", f"{getcwd()}/test/"))
+    run(NGSpice.run(f"./test/schem_test.net", f"./test/"))
 
     assert len(NGSpice.results.keys()) == 6
 

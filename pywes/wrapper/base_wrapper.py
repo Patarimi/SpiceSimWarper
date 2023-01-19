@@ -25,7 +25,6 @@ class SimulationType(str, Enum):
 
 class BaseWrapper(BaseModel):
     name: str
-    path: FilePath
     supported_sim: List[SimulationType]
     results: Optional[ResultDict]
 
@@ -48,7 +47,7 @@ class BaseWrapper(BaseModel):
     async def run(
         self,
         sim_file: FilePath,
-        log_folder: DirectoryPath,
+        log_folder: DirectoryPath = f"{getcwd()}tmp",
         config_file: List[FilePath] = (),
     ):
         """
@@ -59,8 +58,13 @@ class BaseWrapper(BaseModel):
         :return: a temp file of the raw out of the simulator (to be process by serialize_result)
         """
         cir = open(sim_file)
+        conf = load_conf()
+        try:
+            path = conf[self.name]["path"]
+        except KeyError:
+            please_install(self.name)
         proc = await asyncio.create_subprocess_shell(
-            f"{self.path} -s",
+            f"{path} -s",
             stdin=cir,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
@@ -69,7 +73,6 @@ class BaseWrapper(BaseModel):
         std_err_task = asyncio.create_task(self.parse_err(proc.stderr, log_folder))
         res = await asyncio.gather(proc.wait(), std_out_task, std_err_task)
         cir.close()
-        print(res[1])
         self.results = res[1]
 
     def export(self, file: FilePath):
@@ -87,5 +90,15 @@ def load_conf(conf_file: FilePath = f"{getcwd()}/config.yaml") -> dict:
 
 
 def write_conf(conf: dict, conf_file: FilePath = f"{getcwd()}/config.yaml"):
+    conf_old = load_conf(conf_file)
+    for key in conf:
+        # update key in conf, keep all the old keys
+        conf_old[key] = conf[key]
     with open(conf_file, "w") as f:
-        f.write(yaml.dump(conf, Dumper=yaml.Dumper))
+        f.write(yaml.dump(conf_old, Dumper=yaml.Dumper))
+
+
+def please_install(prog_name: str) -> None:
+    print(
+        f"{prog_name} not found in config file. Please run 'pywes {prog_name} install'"
+    )
