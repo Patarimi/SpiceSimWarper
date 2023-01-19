@@ -14,7 +14,6 @@ $ pywes [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* `list`: list available wrappers.
 * For a given wrapper:
   * `install`: install the software on the system.
   * `prepare`: not implemented yet. Set everything for the next simulation.

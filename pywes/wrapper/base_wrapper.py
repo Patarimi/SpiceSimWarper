@@ -8,6 +8,8 @@ import asyncio
 from pywes.parse.results import ResultDict
 import h5py
 from asyncio import StreamReader
+import yaml
+from os import getcwd
 
 
 class SimulatorType(str, Enum):
@@ -43,20 +45,19 @@ class BaseWrapper(BaseModel):
     parse_out: Callable[[StreamReader], ResultDict]
     parse_err: Callable[[StreamReader], ResultDict]
 
-    """
-    run the spice simulation describe by the _spice_file
-    :param sim_file: input file to be simulated
-    :param log_folder: directory to write simulation log
-    :param config_file: List of file used to set up the simulator
-    :return: a temp file of the raw out of the simulator (to be process by serialize_result)
-    """
-
     async def run(
         self,
         sim_file: FilePath,
         log_folder: DirectoryPath,
         config_file: List[FilePath] = (),
     ):
+        """
+        run the spice simulation describe by the _spice_file
+        :param sim_file: input file to be simulated
+        :param log_folder: directory to write simulation log
+        :param config_file: List of file used to set up the simulator
+        :return: a temp file of the raw out of the simulator (to be process by serialize_result)
+        """
         cir = open(sim_file)
         proc = await asyncio.create_subprocess_shell(
             f"{self.path} -s",
@@ -75,3 +76,16 @@ class BaseWrapper(BaseModel):
         with h5py.File(file, "w") as f:
             for res in self.results:
                 f[f"res/{res}"] = self.results[res]
+
+
+def load_conf(conf_file: FilePath = f"{getcwd()}/config.yaml") -> dict:
+    with open(conf_file) as f:
+        conf = yaml.load(f, Loader=yaml.Loader)
+    if conf is None:
+        return dict()
+    return conf
+
+
+def write_conf(conf: dict, conf_file: FilePath = f"{getcwd()}/config.yaml"):
+    with open(conf_file, "w") as f:
+        f.write(yaml.dump(conf, Dumper=yaml.Dumper))
