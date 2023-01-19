@@ -8,6 +8,8 @@ import asyncio
 from pywes.parse.results import ResultDict
 import h5py
 from asyncio import StreamReader
+import yaml
+from os import getcwd
 
 
 class SimulatorType(str, Enum):
@@ -74,3 +76,16 @@ class BaseWrapper(BaseModel):
         with h5py.File(file, "w") as f:
             for res in self.results:
                 f[f"res/{res}"] = self.results[res]
+
+
+def load_conf(conf_file: FilePath = f"{getcwd()}/config.yaml") -> dict:
+    with open(conf_file) as f:
+        conf = yaml.load(f, Loader=yaml.Loader)
+    if conf is None:
+        return dict()
+    return conf
+
+
+def write_conf(conf: dict, conf_file: FilePath = f"{getcwd()}/config.yaml"):
+    with open(conf_file, "w") as f:
+        f.write(yaml.dump(conf, Dumper=yaml.Dumper))
