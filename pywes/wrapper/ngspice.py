@@ -93,9 +93,9 @@ NGSpice = base_wrapper.BaseWrapper(
 
 
 @ng_spice.command(name="run")
-def run_p(sim_file: str, log_folder: str = f"{os.getcwd()}/tmp/"):
+def run_p(in_file: str, out_folder: str = f"{os.getcwd()}/tmp/"):
     """
     Should not be named "run"
     """
-    run(NGSpice.run(sim_file, log_folder))
-    NGSpice.export(f"{log_folder}/res.hdf5")
+    run(NGSpice.run(in_file, out_folder))
+    NGSpice.export(f"{out_folder}/res.hdf5")
