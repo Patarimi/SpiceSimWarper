@@ -28,7 +28,7 @@ tox = "^4.0.0"
 typer-cli = {git = "https://github.com/cdcadman/typer-cli.git"}
 
 [tool.poetry.group.em-sim.dependencies]
-tidy3d = "^1.8.2"
+tidy3d = "^1.8.3"
 gdstk = "^0.9.35"
 
 [build-system]
