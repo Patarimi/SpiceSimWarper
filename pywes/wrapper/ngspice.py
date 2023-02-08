@@ -66,12 +66,14 @@ def install():
         ngspice_base_url = f"https://sourceforge.net/projects/ngspice/files/ng-spice-rework/{ngspice_version}/"
         ngspice_archive_name = f"ngspice-{ngspice_version}_64.zip"
         base_install = f"{os.getcwd()}/simulators/"
+        if not (os.path.isdir(base_install)):
+            os.makedirs(base_install)
         wget.download(ngspice_base_url + ngspice_archive_name, base_install)
         with zipfile.ZipFile(base_install + ngspice_archive_name) as archive:
             archive.extractall(base_install)
         os.remove(base_install + ngspice_archive_name)
         conf = {"ngspice": {"path": f"{base_install}Spice64/bin/ngspice_con.exe"}}
-        base_wrapper.write_conf(conf)
+    base_wrapper.write_conf(conf)
 
 
 @ng_spice.command()
