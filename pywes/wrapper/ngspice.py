@@ -76,21 +76,13 @@ def install():
     base_wrapper.write_conf(conf)
 
 
-@ng_spice.command()
-def prepare() -> bool:
-    """
-    TODO : Should prepare file required for the simulation.
-    """
-    return True
-
-
 NGSpice = base_wrapper.BaseWrapper(
     name="ngspice",
-    supported_sim=("ac",),
+    input_extension=("net", "cir"),
+    output_extension="out",
     parse_out=parse_out,
     parse_err=parse_err,
     install=install,
-    prepare=prepare,
 )
 
 
