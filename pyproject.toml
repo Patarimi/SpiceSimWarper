@@ -28,7 +28,7 @@ tox = "^4.0.0"
 
 [tool.poetry.group.em-sim.dependencies]
 tidy3d = "^1.8.2"
-gdstk = "^0.9.35"
+gdstk = "^0.9.37"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
