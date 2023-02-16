@@ -7,7 +7,7 @@ from pydantic import BaseModel, FilePath, DirectoryPath
 from enum import Enum
 from typing import List, Optional, Callable
 import asyncio
-from pywes.parse.results import ResultDict
+from pywas.parse.results import ResultDict
 import h5py
 from asyncio import StreamReader
 import yaml
@@ -105,5 +105,5 @@ def write_conf(conf: dict, conf_file: FilePath = f"{getcwd()}/config.yaml"):
 
 def please_install(prog_name: str) -> None:
     print(
-        f"{prog_name} not found in config file. Please run 'pywes {prog_name} install'"
+        f"{prog_name} not found in config file. Please run 'pywas {prog_name} install'"
     )
