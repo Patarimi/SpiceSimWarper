@@ -2,3 +2,4 @@
 .tox/
 simulators/*
 config.yaml
+/dist/
