@@ -1,4 +1,4 @@
-from pywes.wrapper.ngspice import NGSpice
+from pywas.wrapper.ngspice import NGSpice
 from asyncio import run
 
 

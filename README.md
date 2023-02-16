@@ -1,9 +1,9 @@
-# `pywes`
+# `pywas`
 
 **Usage**:
 
 ```console
-$ pywes [OPTIONS] COMMAND [ARGS]...
+$ pywas [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
