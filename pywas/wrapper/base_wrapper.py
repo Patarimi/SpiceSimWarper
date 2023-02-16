@@ -1,6 +1,8 @@
 """
 Base class for spice simulator
 """
+import os.path
+
 from pydantic import BaseModel, FilePath, DirectoryPath
 from enum import Enum
 from typing import List, Optional, Callable
@@ -61,19 +63,19 @@ class BaseWrapper(BaseModel):
         conf = load_conf()
         try:
             path = conf[self.name]["path"]
+            proc = await asyncio.create_subprocess_shell(
+                f"{path} -s",
+                stdin=cir,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE,
+            )
+            std_out_task = asyncio.create_task(self.parse_out(proc.stdout))
+            std_err_task = asyncio.create_task(self.parse_err(proc.stderr, log_folder))
+            res = await asyncio.gather(proc.wait(), std_out_task, std_err_task)
+            cir.close()
+            self.results = res[1]
         except KeyError:
             please_install(self.name)
-        proc = await asyncio.create_subprocess_shell(
-            f"{path} -s",
-            stdin=cir,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
-        std_out_task = asyncio.create_task(self.parse_out(proc.stdout))
-        std_err_task = asyncio.create_task(self.parse_err(proc.stderr, log_folder))
-        res = await asyncio.gather(proc.wait(), std_out_task, std_err_task)
-        cir.close()
-        self.results = res[1]
 
     def export(self, file: FilePath):
         with h5py.File(file, "w") as f:
@@ -82,6 +84,9 @@ class BaseWrapper(BaseModel):
 
 
 def load_conf(conf_file: FilePath = f"{getcwd()}/config.yaml") -> dict:
+    if not (os.path.isfile(conf_file)):
+        with open(conf_file, "w") as f:
+            pass
     with open(conf_file) as f:
         conf = yaml.load(f, Loader=yaml.Loader)
     if conf is None:
