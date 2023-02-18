@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "pywes"
+name = "pywas"
 version = "0.1.0"
 description = ""
 authors = ["Patarimi <mpqqch@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
-pywes = "pywes.main:cli"
+pywas = "pywas.main:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8"

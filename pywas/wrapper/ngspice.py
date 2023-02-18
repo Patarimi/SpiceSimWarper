@@ -1,7 +1,7 @@
 import os
 from asyncio import StreamReader, run
 from pydantic import FilePath, DirectoryPath
-import pywes.wrapper.base_wrapper as base_wrapper
+import pywas.wrapper.base_wrapper as base_wrapper
 from typer import Typer
 import wget
 import zipfile

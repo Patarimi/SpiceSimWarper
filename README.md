@@ -1,9 +1,16 @@
-# `pywes`
+# `pywas`
+*Py*thon *W*rapper for *A*nalog design *S*oftware
+
+**Installation using [pipx](https://pypa.github.io/pipx/installation/)**:
+
+```console
+$ pipx install pywas
+```
 
 **Usage**:
 
 ```console
-$ pywes [OPTIONS] COMMAND [ARGS]...
+$ pywas [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
