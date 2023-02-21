@@ -5,7 +5,16 @@ from .wrapper.ngspice import ng_spice
     from importlib import import_module
     module = import_module(var: str)
 """
-cli = typer.Typer()
+help = """
+*Py*thon *W*rapper for *A*nalog design *S*oftware
+
+**Installation using [pipx](https://pypa.github.io/pipx/installation/)**:
+
+```console
+$ pipx install pywas
+```
+"""
+cli = typer.Typer(help=help)
 cli.add_typer(ng_spice, name="ngspice")
 
 

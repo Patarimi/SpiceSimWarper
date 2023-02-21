@@ -1,4 +1,5 @@
-# `pywas`
+# `pyWAS`
+
 *Py*thon *W*rapper for *A*nalog design *S*oftware
 
 **Installation using [pipx](https://pypa.github.io/pipx/installation/)**:
@@ -10,7 +11,7 @@ $ pipx install pywas
 **Usage**:
 
 ```console
-$ pywas [OPTIONS] COMMAND [ARGS]...
+$ pyWAS [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -21,8 +22,69 @@ $ pywas [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* For a given wrapper:
-  * `install`: install the software on the system.
-  * `prepare`: not implemented yet. Set everything up for the next simulation.
-  * `run`: run the simulation and store the output in results.
-  * `export`: export the results as a .hdf5 file.
+* `ngspice`
+
+## `pyWAS ngspice`
+
+**Usage**:
+
+```console
+$ pyWAS ngspice [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `install`: Install ngspice executable in the correct...
+* `prepare`: TODO : Should prepare file required for...
+* `run`: Should not be named "run"
+
+### `pyWAS ngspice install`
+
+Install ngspice executable in the correct location.
+
+**Usage**:
+
+```console
+$ pyWAS ngspice install [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `pyWAS ngspice prepare`
+
+TODO : Should prepare file required for the simulation.
+
+**Usage**:
+
+```console
+$ pyWAS ngspice prepare [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `pyWAS ngspice run`
+
+Should not be named "run"
+
+**Usage**:
+
+```console
+$ pyWAS ngspice run [OPTIONS] IN_FILE
+```
+
+**Arguments**:
+
+* `IN_FILE`: [required]
+
+**Options**:
+
+* `--out-folder TEXT`: [default: C:\Users\Potereau\PycharmProjects\pyWES/tmp/]
+* `--help`: Show this message and exit.
