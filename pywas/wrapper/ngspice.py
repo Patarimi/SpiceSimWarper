@@ -77,10 +77,8 @@ def install():
 
 
 @ng_spice.command()
-def prepare() -> bool:
-    """
-    TODO : Should prepare file required for the simulation.
-    """
+def config(key: str, path: str) -> bool:
+    base_wrapper.write_conf({"ngspice": {key: path}})
     return True
 
 
@@ -90,7 +88,7 @@ NGSpice = base_wrapper.BaseWrapper(
     parse_out=parse_out,
     parse_err=parse_err,
     install=install,
-    prepare=prepare,
+    config=config,
 )
 
 
