@@ -7,6 +7,7 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 pywas = "pywas.main:cli"
+wasutils = "pywas.utils:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8"

@@ -38,9 +38,26 @@ $ pyWAS ngspice [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
+* `config`
 * `install`: Install ngspice executable in the correct...
-* `prepare`: TODO : Should prepare file required for...
 * `run`: Should not be named "run"
+
+### `pyWAS ngspice config`
+
+**Usage**:
+
+```console
+$ pyWAS ngspice config [OPTIONS] KEY PATH
+```
+
+**Arguments**:
+
+* `KEY`: [required]
+* `PATH`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
 
 ### `pyWAS ngspice install`
 
@@ -50,20 +67,6 @@ Install ngspice executable in the correct location.
 
 ```console
 $ pyWAS ngspice install [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
-### `pyWAS ngspice prepare`
-
-TODO : Should prepare file required for the simulation.
-
-**Usage**:
-
-```console
-$ pyWAS ngspice prepare [OPTIONS]
 ```
 
 **Options**:

@@ -36,9 +36,9 @@ class BaseWrapper(BaseModel):
     install: Callable[[], bool]
 
     """
-    Prepare the files needed for the simulation
+    Write configuration file
     """
-    prepare: Callable[[], bool]
+    config: Callable[[], bool]
 
     """
     Parse the output of the simulation and convert it to a ResultDict
