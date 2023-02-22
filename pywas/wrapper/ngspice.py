@@ -76,6 +76,12 @@ def install():
     base_wrapper.write_conf(conf)
 
 
+@ng_spice.command()
+def config(key: str, path: str) -> bool:
+    base_wrapper.write_conf({"ngspice": {key: path}})
+    return True
+
+
 NGSpice = base_wrapper.BaseWrapper(
     name="ngspice",
     input_extension=("net", "cir"),
@@ -83,6 +89,7 @@ NGSpice = base_wrapper.BaseWrapper(
     parse_out=parse_out,
     parse_err=parse_err,
     install=install,
+    config=config,
 )
 
 

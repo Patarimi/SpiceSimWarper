@@ -26,6 +26,11 @@ class BaseWrapper(BaseModel):
     install: Callable[[], bool]
 
     """
+    Write configuration file
+    """
+    config: Callable[[], bool]
+
+    """
     Parse the output of the simulation and convert it to a ResultDict
     """
     parse_out: Callable[[StreamReader], ResultDict]

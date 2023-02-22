@@ -7,6 +7,7 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 pywas = "pywas.main:cli"
+bake = "pywas.bake:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -25,6 +26,7 @@ pytest = "^7.2.0"
 black = "^22.6.0"
 pre-commit = "^2.20.0"
 tox = "^4.0.0"
+typer-cli = "^0.0.13"
 
 [tool.poetry.group.em-sim.dependencies]
 tidy3d = "^1.8.2"
