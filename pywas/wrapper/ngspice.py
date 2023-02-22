@@ -84,7 +84,8 @@ def config(key: str, path: str) -> bool:
 
 NGSpice = base_wrapper.BaseWrapper(
     name="ngspice",
-    supported_sim=("ac",),
+    input_extension=("net", "cir"),
+    output_extension="out",
     parse_out=parse_out,
     parse_err=parse_err,
     install=install,

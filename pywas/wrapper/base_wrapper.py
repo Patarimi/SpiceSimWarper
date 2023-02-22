@@ -14,20 +14,10 @@ import yaml
 from os import getcwd
 
 
-class SimulatorType(str, Enum):
-    spice = "spice"
-    em = "em"
-
-
-class SimulationType(str, Enum):
-    ac = "ac"
-    dc = "dc"
-    tran = "tran"
-
-
 class BaseWrapper(BaseModel):
     name: str
-    supported_sim: List[SimulationType]
+    input_extension: List[str]
+    output_extension: str
     results: Optional[ResultDict]
 
     """
@@ -49,14 +39,12 @@ class BaseWrapper(BaseModel):
     async def run(
         self,
         sim_file: FilePath,
-        log_folder: DirectoryPath = f"{getcwd()}tmp",
-        config_file: List[FilePath] = (),
+        out_folder: DirectoryPath = f"{getcwd()}tmp",
     ):
         """
         run the spice simulation describe by the _spice_file
-        :param sim_file: input file to be simulated
-        :param log_folder: directory to write simulation log
-        :param config_file: List of file used to set up the simulator
+        :param sim_file: input file to be process by the program
+        :param out_folder: directory to write simulation log
         :return: a temp file of the raw out of the simulator (to be process by serialize_result)
         """
         cir = open(sim_file)
@@ -70,7 +58,7 @@ class BaseWrapper(BaseModel):
                 stderr=asyncio.subprocess.PIPE,
             )
             std_out_task = asyncio.create_task(self.parse_out(proc.stdout))
-            std_err_task = asyncio.create_task(self.parse_err(proc.stderr, log_folder))
+            std_err_task = asyncio.create_task(self.parse_err(proc.stderr, out_folder))
             res = await asyncio.gather(proc.wait(), std_out_task, std_err_task)
             cir.close()
             self.results = res[1]
