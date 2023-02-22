@@ -1,0 +1,2 @@
+doc:
+    typer pywas.main utils docs --name pyWAS --output README.md
