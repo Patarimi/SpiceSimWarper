@@ -5,4 +5,4 @@ show-update:
 lock-req:
     poetry export -o requirements.txt --without-hashes
 publish:
-    poetry publish --build
+    poetry publish --build --username __token__ --password $Env:PYPI_TOKEN
