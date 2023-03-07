@@ -1,2 +1,8 @@
 doc:
     typer pywas.main utils docs --name pyWAS --output README.md
+show-update:
+    poetry show -l -o
+lock-req:
+    poetry export -o requirements.txt --without-hashes
+publish:
+    poetry publish --build
