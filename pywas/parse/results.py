@@ -1,6 +1,7 @@
 import h5py
 from pydantic import FilePath
-from typing import TypedDict, List
+from typing import List
+from typing_extensions import TypedDict
 
 
 class ResultDict(TypedDict):
