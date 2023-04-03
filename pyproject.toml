@@ -17,7 +17,7 @@ publish     = "poetry publish --build --username __token__ --password $PYPI_TOKE
 [tool.poetry.dependencies]
 python = "^3.8"
 fastapi-jsonrpc = "^2.2.0"
-uvicorn = {extras = ["standard"], version = "^0.20.0"}
+uvicorn = {extras = ["standard"], version = ">=0.20,<0.22"}
 typer = "^0.7.0"
 h5py = "^3.7.0"
 numpy = "^1.23.2"
