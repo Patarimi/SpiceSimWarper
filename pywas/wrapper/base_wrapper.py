@@ -12,6 +12,7 @@ import h5py
 from asyncio import StreamReader
 import yaml
 from os import getcwd
+from rich import print
 
 
 class BaseWrapper(BaseModel):
@@ -64,6 +65,7 @@ class BaseWrapper(BaseModel):
             self.results = res[1]
         except KeyError:
             please_install(self.name)
+            exit()
 
     def export(self, file: FilePath):
         with h5py.File(file, "w") as f:
