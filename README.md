@@ -22,7 +22,27 @@ $ pyWAS [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
+* `create`: Create a new project with specified options.
 * `ngspice`
+
+## `pyWAS create`
+
+Create a new project with specified options.
+
+**Usage**:
+
+```console
+$ pyWAS create [OPTIONS] NAME [FLOW]
+```
+
+**Arguments**:
+
+* `NAME`: [required]
+* `[FLOW]`: [default: OpenLane]
+
+**Options**:
+
+* `--help`: Show this message and exit.
 
 ## `pyWAS ngspice`
 

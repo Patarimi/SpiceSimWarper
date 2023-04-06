@@ -3,3 +3,4 @@
 simulators/*
 config.yaml
 /dist/
+working_dir/*

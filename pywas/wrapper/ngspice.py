@@ -1,6 +1,6 @@
 import os
 from asyncio import StreamReader, run
-from pydantic import FilePath, DirectoryPath
+from pydantic import DirectoryPath
 import pywas.wrapper.base_wrapper as base_wrapper
 from typer import Typer
 import wget
