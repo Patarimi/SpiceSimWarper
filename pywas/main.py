@@ -3,6 +3,7 @@ from rich import print
 import typer
 from .wrapper.ngspice import ng_spice
 from .wrapper.base_wrapper import write_conf
+from .wrapper.template import template
 
 """could be :
     from importlib import import_module
@@ -19,6 +20,7 @@ $ pipx install pywas
 """
 cli = typer.Typer(help=help)
 cli.add_typer(ng_spice, name="ngspice")
+cli.add_typer(template, name="template")
 
 
 @cli.command("create")
