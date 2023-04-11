@@ -3,6 +3,7 @@ from rich import print
 import jinja2
 from jinja2 import meta
 import typer
+from pathlib import Path
 
 template = typer.Typer()
 base = path.dirname(__file__)
@@ -12,7 +13,7 @@ env = jinja2.Environment(loader=loader)
 
 
 @template.command("infos")
-def new_file_from_template(template_name: str):
+def template_infos(template_name: str):
     """
     Give a description of the template.
     """
@@ -31,7 +32,7 @@ def list_available_template():
 
 
 @template.command("create")
-def new_file_from_template(template_name: str, output_file: str = None):
+def new_file_from_template(template_name: Path, output_file: Path = None):
     """
     Create a new file from the given template.
     List of available template can be retrieve by ```pywas template list```
@@ -43,7 +44,9 @@ def new_file_from_template(template_name: str, output_file: str = None):
     context = dict()
     for var in meta.find_undeclared_variables(parsed_content):
         context[var] = typer.prompt(var)
-    print(f"Will create new {template_name} with the following config: {context}")
+    print(
+        f"Will create new [b]{template_name}[/b] with the following config: {context}"
+    )
     temp = env.get_template(template_name)
     with open(output_file, "w") as fh:
         fh.write(temp.render(context))

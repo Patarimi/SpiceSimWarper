@@ -1,6 +1,7 @@
 import os
 from rich import print
 import typer
+from pathlib import Path
 from .wrapper.ngspice import ng_spice
 from .wrapper.base_wrapper import write_conf
 from .wrapper.template import template
@@ -20,12 +21,12 @@ cli.add_typer(template, name="template", help="templating part")
 
 
 @cli.command("create")
-def new_project(name: str, flow: str = typer.Argument("OpenLane")):
+def new_project(name: Path, flow: str = typer.Argument("OpenLane")):
     """
     Create a new project with specified options.
     """
     os.mkdir(name)
-    write_conf({"flow": flow}, os.path.join(name, "config.yaml"))
+    write_conf({"flow": flow}, name / "config.yaml")
     print("New project created !")
 
 

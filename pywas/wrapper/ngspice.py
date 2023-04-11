@@ -49,7 +49,7 @@ async def parse_err(stderr: StreamReader, log_folder: DirectoryPath):
     """
     if not os.path.isdir(log_folder):
         os.mkdir(log_folder)
-    with open(log_folder + "err.out", "wb") as err:
+    with open(log_folder / "err.out", "wb") as err:
         err.write(await stderr.read())
 
 
