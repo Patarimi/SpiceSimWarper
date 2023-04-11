@@ -6,24 +6,17 @@ module bench;
     wire signed [15:0] out_d;
     wire dout;
 
-    {{ module_name }} dac (
+    {{module_name}} dut (
         .clk(clk),
         .rst_n(res),
         .din(din),
         .dout(dout)
     );
 
-    decimator dec(
-        .stream_in(dout),
-        .clk(clk),
-        .rst_n(res),
-        .dec_out(out_d)
-    );
-
     integer step;
 
     initial begin
-        $dumpfile("sigma_delta_2.vcd");
+        $dumpfile("{{module_name}}.vcd");
         $dumpvars(0, bench);
     //variables initialisation
         clk <= 1'b0;
