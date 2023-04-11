@@ -24,6 +24,7 @@ $ pyWAS [OPTIONS] COMMAND [ARGS]...
 
 * `create`: Create a new project with specified options.
 * `ngspice`
+* `template`
 
 ## `pyWAS create`
 
@@ -110,4 +111,74 @@ $ pyWAS ngspice run [OPTIONS] IN_FILE
 **Options**:
 
 * `--out-folder TEXT`: [default: C:\Users\Potereau\PycharmProjects\pyWES/tmp/]
+* `--help`: Show this message and exit.
+
+## `pyWAS template`
+
+**Usage**:
+
+```console
+$ pyWAS template [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `create`: Create a new file from the given template.
+* `infos`: Give a description of the template.
+* `list`: List all available template.
+
+### `pyWAS template create`
+
+Create a new file from the given template.
+List of available template can be retrieve by ```pywas template list```
+
+**Usage**:
+
+```console
+$ pyWAS template create [OPTIONS] TEMPLATE_NAME
+```
+
+**Arguments**:
+
+* `TEMPLATE_NAME`: [required]
+
+**Options**:
+
+* `--output-file TEXT`
+* `--help`: Show this message and exit.
+
+### `pyWAS template infos`
+
+Give a description of the template.
+
+**Usage**:
+
+```console
+$ pyWAS template infos [OPTIONS] TEMPLATE_NAME
+```
+
+**Arguments**:
+
+* `TEMPLATE_NAME`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `pyWAS template list`
+
+List all available template.
+
+**Usage**:
+
+```console
+$ pyWAS template list [OPTIONS]
+```
+
+**Options**:
+
 * `--help`: Show this message and exit.
