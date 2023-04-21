@@ -2,9 +2,9 @@ from pywas.wrapper.ngspice import NGSpice
 from asyncio import run
 
 
-def test_ngspice():
-    run(NGSpice.run(f"./test/schem_test.net", f"./test/"))
+def test_ngspice(tmp_path):
+    run(NGSpice.run(f"./test/schem_test.net", tmp_path / "test"))
 
     assert len(NGSpice.results.keys()) == 6
 
-    NGSpice.export("./test/schem_test.hdf5")
+    NGSpice.export(tmp_path / "test/schem_test.hdf5")
