@@ -4,7 +4,6 @@ Base class for spice simulator
 import os.path
 
 from pydantic import BaseModel, FilePath, DirectoryPath
-from enum import Enum
 from typing import List, Optional, Callable
 import asyncio
 from pywas.parse.results import ResultDict
@@ -46,7 +45,8 @@ class BaseWrapper(BaseModel):
         run the spice simulation describe by the _spice_file
         :param sim_file: input file to be process by the program
         :param out_folder: directory to write simulation log
-        :return: a temp file of the raw out of the simulator (to be process by serialize_result)
+        :return: a temp file of the raw out of the simulator
+        (to be process by serialize_result)
         """
         cir = open(sim_file)
         conf = load_conf()
