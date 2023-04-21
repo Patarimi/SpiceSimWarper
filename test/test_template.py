@@ -1,4 +1,4 @@
-from pywas.wrapper import template
+from pywas import template
 
 
 def test_infos():

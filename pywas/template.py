@@ -7,7 +7,7 @@ from pathlib import Path
 
 template = typer.Typer()
 base = path.dirname(__file__)
-template_dir = path.join(path.dirname(base), "template")
+template_dir = path.join(path.dirname(base), "jinja2_template")
 loader = jinja2.FileSystemLoader(template_dir)
 env = jinja2.Environment(loader=loader)
 
