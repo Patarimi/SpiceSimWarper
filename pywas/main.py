@@ -22,17 +22,12 @@ cli.add_typer(template, name="template", help="templating part")
 
 
 @cli.command("create")
-def new_project(name: str, flow: str = typer.Argument("Openlane")):
+def new_project(name: str):
     """
     Create a new project with specified options.
     """
     template_path = "./pywas/cookiecutter_template"
-    if name in os.listdir(template_path):
-        cookiecutter(os.path.join(template_path, name))
-    else:
-        os.mkdir(name)
-        write_conf({"flow": flow}, os.path.join(name, "config.yaml"))
-        print("New project created !")
+    cookiecutter(os.path.join(template_path, name))
 
 
 if __name__ == "__main__":
