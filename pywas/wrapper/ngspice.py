@@ -15,7 +15,7 @@ async def parse_out(stdout: StreamReader) -> base_wrapper.ResultDict:
     step = "start"
     results = base_wrapper.ResultDict()
     while line := await stdout.readline():
-        l_str = line.decode()
+        l_str = line.decode(encoding='latin')
         if l_str.startswith("Variables"):
             step = "var_name"
         if l_str.startswith("Values"):
