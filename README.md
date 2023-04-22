@@ -23,8 +23,8 @@ $ pyWAS [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `create`: Create a new project with specified options.
-* `ngspice`
-* `template`
+* `ngspice`: ngspice utility
+* `template`: templating part
 
 ## `pyWAS create`
 
@@ -33,19 +33,20 @@ Create a new project with specified options.
 **Usage**:
 
 ```console
-$ pyWAS create [OPTIONS] NAME [FLOW]
+$ pyWAS create [OPTIONS] NAME
 ```
 
 **Arguments**:
 
 * `NAME`: [required]
-* `[FLOW]`: [default: OpenLane]
 
 **Options**:
 
 * `--help`: Show this message and exit.
 
 ## `pyWAS ngspice`
+
+ngspice utility
 
 **Usage**:
 
@@ -110,10 +111,12 @@ $ pyWAS ngspice run [OPTIONS] IN_FILE
 
 **Options**:
 
-* `--out-folder TEXT`: [default: C:\Users\Potereau\PycharmProjects\pyWES/tmp/]
+* `--out-folder TEXT`: [default: C:\Users\JoPo\PycharmProjects\pyWES/tmp/]
 * `--help`: Show this message and exit.
 
 ## `pyWAS template`
+
+templating part
 
 **Usage**:
 
@@ -148,7 +151,7 @@ $ pyWAS template create [OPTIONS] TEMPLATE_NAME
 
 **Options**:
 
-* `--output-file TEXT`
+* `--output-file PATH`
 * `--help`: Show this message and exit.
 
 ### `pyWAS template infos`
