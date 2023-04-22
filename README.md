@@ -33,13 +33,12 @@ Create a new project with specified options.
 **Usage**:
 
 ```console
-$ pyWAS create [OPTIONS] NAME [FLOW]
+$ pyWAS create [OPTIONS] NAME
 ```
 
 **Arguments**:
 
 * `NAME`: [required]
-* `[FLOW]`: [default: Openlane]
 
 **Options**:
 
@@ -112,7 +111,7 @@ $ pyWAS ngspice run [OPTIONS] IN_FILE
 
 **Options**:
 
-* `--out-folder TEXT`: [default: C:\Users\Potereau\PycharmProjects\pyWES/tmp/]
+* `--out-folder TEXT`: [default: C:\Users\JoPo\PycharmProjects\pyWES/tmp/]
 * `--help`: Show this message and exit.
 
 ## `pyWAS template`

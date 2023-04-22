@@ -7,7 +7,7 @@ from pathlib import Path
 
 template = typer.Typer()
 base = path.dirname(__file__)
-template_dir = path.join(path.dirname(base), "jinja2_template")
+template_dir = path.join(path.dirname(base), "pywas/jinja2_template")
 loader = jinja2.FileSystemLoader(template_dir)
 env = jinja2.Environment(loader=loader)
 
@@ -28,6 +28,7 @@ def list_available_template():
     """
     List all available template.
     """
+    print(f"template search path :{template_dir}")
     print(env.list_templates())
 
 
