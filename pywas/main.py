@@ -27,7 +27,7 @@ def new_project(name: str):
     """
     Create a new project with specified options.
     """
-    template_path = "./pywas/cookiecutter_template"
+    template_path = os.path.join(os.path.dirname(__file__), "cookiecutter_template")
     try:
         cookiecutter(os.path.join(template_path, name))
     except RepositoryNotFound:
