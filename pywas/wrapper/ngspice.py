@@ -2,7 +2,8 @@ import os
 from asyncio import StreamReader, run
 from pydantic import DirectoryPath
 import pywas.wrapper.base_wrapper as base_wrapper
-from typer import Typer
+from typer import Typer, Argument
+from typing_extensions import Annotated
 import wget
 import zipfile
 
@@ -94,7 +95,12 @@ NGSpice = base_wrapper.BaseWrapper(
 
 
 @ng_spice.command(name="run")
-def run_p(in_file: str, out_folder: str = f"{os.getcwd()}/tmp/"):
+def run_p(
+    in_file: str,
+    out_folder: Annotated[
+        str, Argument(help="[default: $PWD/tmp/]", show_default=False)
+    ] = f"{os.getcwd()}/tmp/",
+):
     """
     Should not be named "run"
     """

@@ -102,16 +102,16 @@ Should not be named "run"
 **Usage**:
 
 ```console
-$ pyWAS ngspice run [OPTIONS] IN_FILE
+$ pyWAS ngspice run [OPTIONS] IN_FILE [OUT_FOLDER]
 ```
 
 **Arguments**:
 
 * `IN_FILE`: [required]
+* `[OUT_FOLDER]`: [default: $PWD/tmp/]
 
 **Options**:
 
-* `--out-folder TEXT`: [default: C:\Users\JoPo\PycharmProjects\pyWES/tmp/]
 * `--help`: Show this message and exit.
 
 ## `pyWAS template`
