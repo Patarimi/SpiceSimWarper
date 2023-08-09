@@ -79,9 +79,7 @@ def load_conf(conf_file: FilePath = f"{getcwd()}/config.yaml") -> dict:
             pass
     with open(conf_file) as f:
         conf = yaml.load(f, Loader=yaml.Loader)
-    if conf is None:
-        return dict()
-    return conf
+    return {} if conf is None else conf
 
 
 def write_conf(conf: dict, conf_file: FilePath = f"{getcwd()}/config.yaml"):
