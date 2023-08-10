@@ -2,7 +2,7 @@ from pywes.wrapper.ngspice import NGSpice
 from asyncio import run
 import matplotlib.pyplot as plt
 
-run(NGSpice.run(f"./test/schem_test.net", f"./test/"))
+run(NGSpice.run("./test/schem_test.net", "./test/"))
 out = NGSpice.results
 
 print(out.keys())

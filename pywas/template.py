@@ -42,9 +42,10 @@ def new_file_from_template(template_name: Path, output_file: Path = None):
         output_file = template_name
     temp_s = env.loader.get_source(env, template_name)
     parsed_content = env.parse(temp_s)
-    context = dict()
-    for var in meta.find_undeclared_variables(parsed_content):
-        context[var] = typer.prompt(var)
+    context = {
+        var: typer.prompt(var)
+        for var in meta.find_undeclared_variables(parsed_content)
+    }
     print(
         f"Will create new [b]{template_name}[/b] with the following config: {context}"
     )
