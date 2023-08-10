@@ -12,7 +12,7 @@ ng_spice = Typer()
 
 async def parse_out(stdout: StreamReader) -> base_wrapper.ResultDict:
     ind = 0
-    var_name = list()
+    var_name = []
     step = "start"
     results = base_wrapper.ResultDict()
     while line := await stdout.readline():
@@ -30,13 +30,11 @@ async def parse_out(stdout: StreamReader) -> base_wrapper.ResultDict:
             except ValueError:
                 continue
             var_name.append(l_split[1])
-            results[l_split[1]] = list()
+            results[l_split[1]] = []
             continue
-        # Values extractions part
         if step == "values":
             if len(l_split) == 2:
-                ind = 0
-                results[var_name[ind]].append(float(l_str.split()[1]))
+                results[var_name[0]].append(float(l_str.split()[1]))
             else:
                 r = float(l_str)
                 ind += 1

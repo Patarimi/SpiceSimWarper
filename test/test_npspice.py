@@ -3,7 +3,7 @@ from asyncio import run
 
 
 def test_ngspice(tmp_path):
-    run(NGSpice.run(f"./test/schem_test.net", tmp_path / "test"))
+    run(NGSpice.run("./test/schem_test.net", tmp_path / "test"))
 
     assert len(NGSpice.results.keys()) == 6
 
