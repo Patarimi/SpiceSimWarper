@@ -18,7 +18,7 @@ class BaseWrapper(BaseModel):
     name: str
     input_extension: List[str]
     output_extension: str
-    results: Optional[ResultDict]
+    results: Optional[ResultDict] = {}
 
     """
     Install the software on the machine.
