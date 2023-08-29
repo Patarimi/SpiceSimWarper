@@ -35,6 +35,7 @@ async def parse_out(stdout: StreamReader) -> base_wrapper.ResultDict:
         if step == "values":
             if len(l_split) == 2:
                 results[var_name[0]].append(float(l_str.split()[1]))
+                ind = 0
             else:
                 r = float(l_str)
                 ind += 1
@@ -48,7 +49,7 @@ async def parse_err(stderr: StreamReader, log_folder: DirectoryPath):
     """
     if not os.path.isdir(log_folder):
         os.mkdir(log_folder)
-    with open(log_folder / "err.out", "wb") as err:
+    with open(os.path.join(log_folder, "err.out"), "wb") as err:
         err.write(await stderr.read())
 
 
@@ -62,7 +63,7 @@ def install():
         conf = {"ngspice": {"path": "ngspice"}}
     else:
         ngspice_version = 38
-        ngspice_base_url = f"https://sourceforge.net/projects/ngspice/files/ng-spice-rework/{ngspice_version}/"
+        ngspice_base_url = f"https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/{ngspice_version}/"
         ngspice_archive_name = f"ngspice-{ngspice_version}_64.zip"
         base_install = f"{os.getcwd()}/simulators/"
         if not (os.path.isdir(base_install)):
