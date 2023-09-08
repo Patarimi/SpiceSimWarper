@@ -1,6 +1,6 @@
 # `pyWAS`
 
-*Py*thon *W*rapper for *A*nalog design *S*oftware
+*Py*thon *W*rapper for *A*nalog design *S*oftware. **This is a work in progress.** The final goal is to create a server to control several analogic simulator softwares through a unified API.
 
 **Installation using [pipx](https://pypa.github.io/pipx/installation/)**:
 
