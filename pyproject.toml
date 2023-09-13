@@ -32,7 +32,7 @@ black = "^23.1.0"
 pre-commit = "^3.1.1"
 tox = "^4.0.0"
 typer-cli = {git = "https://github.com/Patarimi/typer-cli.git"}
-poethepoet = ">=0.20,<0.22"
+poethepoet = ">=0.22"
 pytest-sugar = "^0.9.7"
 
 [tool.pytest.ini_options]
