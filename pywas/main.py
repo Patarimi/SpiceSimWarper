@@ -1,7 +1,7 @@
 import os
 
 from cookiecutter.exceptions import RepositoryNotFound
-from rich import print, pretty
+from rich import print
 import typer
 from .wrapper.ngspice import ng_spice
 from pywas.template import template
