@@ -33,7 +33,7 @@ pre-commit = "^3.1.1"
 tox = "^4.0.0"
 typer-cli = {git = "https://github.com/Patarimi/typer-cli.git"}
 poethepoet = ">=0.22"
-pytest-sugar = "^0.9.7"
+pytest-sugar = ">=0.9.7,<1.1.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
